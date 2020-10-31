@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      {{msg}}================
+      {{loginIn}}
+      <router-link to="/About">About </router-link>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import req from '@/request/request.js'
+import api from '@/api/index'
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      msg:'HOME',
+      loginIn:''
+    }
+  },
+  components: {},
+  created(){
+    req.commpontThis(this)
+      req.login.loginIn()
+     
+     let data={
+        user_name:'pppp',
+        psw:'123788'
+     }
+      req.login.register({
+        method:'post',
+        data:data,
+        success:(res)=>{
+          console.log('reg=>',res)
+        }
+      })
   }
 }
 </script>
