@@ -1,5 +1,8 @@
 # demoapi
 
+## 最近学习
+### 基于axios二次封装API层，实现数据自动绑定，防止重复请求，方便项目管理
+### server node+expree开发的简单接口
 ## Project setup
 ```
 npm install
