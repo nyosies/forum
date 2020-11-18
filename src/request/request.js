@@ -27,7 +27,7 @@ Myserve.prototype.parseRouter = function (name, modelUrl) {
     })
 }
 Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
-    console.log(config)
+    // console.log(config)
     let method = config.method || 'get'
     let data = config.data || {}
     let bindName = config.bindName || name
@@ -38,7 +38,7 @@ Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
     }
     //  请求数据默认处理
     let defaultRequest = function (res) {
-        console.log(self.nowhand)
+        // console.log(self.nowhand)
         self.nowhand[bindName] = res
     }
     //成功的回调
@@ -56,7 +56,7 @@ Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
     }
     //参数序列化
     let qsURL = data ? url + '?' + qs.stringify(data) : url
-    console.log(qsURL)
+    // console.log(qsURL)
     //请求方式
     let state = {}
     let methodArr = ['get', 'post', 'put', 'del']

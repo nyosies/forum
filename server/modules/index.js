@@ -1,6 +1,11 @@
-let loginModule = require('./login.js')
+let loginModule = require('./model/login.js')
+let articleModule = require('./model/article.js')
+let fun = require('../fun/fun')
 
 
-module.exports={
-    loginModule
+// let fileName = fun.findSync('Module','./server/modules/model')
+// console.log(fileName)
+
+module.exports = {
+    loginModule, articleModule
 }

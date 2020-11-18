@@ -1,20 +1,35 @@
 const express = require('express')
 const router = express.Router()
 
+let bcrypt = require('../fun/bcrypt/index')
 let options = require('../modules')
 
 router.use((req, res, next) => {
-    // console.log('路由拦截')
     next()
 })
+/**
+ * 路由拦截
+ * 
+ */
+router.get('/loginIn',options.loginModule.login)
 
-router.get('/', (req, res) => {
-    res.send('hello world111')
-})
-router.get('/loginIn', (req, res) => options.loginModule.login(req, res))
+router.post('/register',options.loginModule.register)
 
-router.post('/register', (req, res) => options.loginModule.register(req, res))
+router.post('/user',  options.loginModule.user)
 
-router.post('/user', (req, res) => options.loginModule.user(req, res))
+/**
+ * 获取文章
+ */
+router.get('/getArticle', options.articleModule.getArticle)
+/**
+ * 分页
+ */
+router.get('/pagination', options.articleModule.pagination)
 
+router.get('/allArticle',options.articleModule.allArticle)
+/**
+ * searchArticle 分类
+ */
+
+router.get('/searchArticle',options.articleModule.searchArticle)
 module.exports = router

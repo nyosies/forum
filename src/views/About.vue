@@ -1,15 +1,23 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="about" style="transitionDuration:2s">
+       <NavBar></NavBar>
+    <h1 class="hs animate__animated animate__slideInLeft">This is an about page</h1>
     {{user}}
+     <el-drawer title="我是标题" :visible.sync="drawer" :with-header="false">
+      <span>我来啦!</span>
+    </el-drawer>
+     <nkSwiper></nkSwiper>
   </div>
 </template>
 <script>
-
+import nkSwiper from "../components/nkSwiper";
+import NavBar from "../components/navHead";
 export default {
+  components:{nkSwiper,NavBar},
   data(){
     return{
-      user:''
+      user:'',
+      drawer:true
     }
   },
   created(){
@@ -23,3 +31,10 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+@media screen and (max-width:500px){ 
+.hs{
+  background: aqua;
+}
+}
+</style>
