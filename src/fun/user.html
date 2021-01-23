@@ -1,0 +1,78 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>无标题文档</title>
+</head>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+  }
+
+  .table_list {
+    margin-top: 200px;
+    /* border: 1px solid #333; */
+  }
+
+  thead {
+    border: 1px solid #ff6666
+  }
+
+  td {
+    /* display: block; */
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+
+  tbody td {
+    border-right: 1px solid tan;
+  }
+</style>
+
+<body>
+  <table border="0" cellspacing="1" class="table_list" width="780">
+    <thead>
+      <tr>
+        <td>教师号</td>
+        <td>账号</td>
+        <td>密码</td>
+        <!-- <td>操作</td> -->
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 创建DOM -->
+
+    </tbody>
+  </table>
+</body>
+
+</html>
+<script>
+  var xml = new XMLHttpRequest();
+  xml.onreadystatechange = function () {
+    if (xml.readyState == 4 && xml.status == 200) {
+      var res = xml.responseText;
+      res = JSON.parse(res)
+      console.log(res)
+      // var tbody = document.querySelector('tbody');
+      // var tr = tbody.querySelector('tr');
+      // var obj = res.data
+      // obj.forEach(ele => {
+        // var trs = document.createElement('tr')
+        // for (let key in ele) {
+        //   var tds = document.createElement('td')
+        //   tds.innerHTML = ele[key]
+        //   trs.appendChild(tds);
+        //   tbody.appendChild(trs)
+        // }
+      // });
+
+    }
+  }
+  xml.open('post', 'http://localhost:3000/loginIn', true);
+  xml.send();
+</script>

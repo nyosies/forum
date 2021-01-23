@@ -1,15 +1,15 @@
 <template>
-  <div class="index" ref="index" style="transitionDuration:2s">
+  <div class="index" ref="index">
     <NavBar :headbgColor="headbgColor" :drawer="drawer" @nowSmall="now" :title="msg">
       <!-- <template v-slot:left>
         <div class="Nkosies">{{msg}}</div>
-      </template> -->
+      </template>-->
     </NavBar>
     <div class="index-core">
       <div class="banner">
-        <div class="animate__animated animate__fadeInDown title">前端菜鸟!前端菜鸟!前端菜鸟</div>
+        <div class="wow animate__animated animate__fadeInDown title">前端菜鸟!前端菜鸟!前端菜鸟</div>
         <transition>
-          <div class="animate__animated animate__bounceInLeft introduce">star 快来开发</div>
+          <div class="wow animate__animated animate__bounceInLeft introduce">star 快来开发</div>
         </transition>
       </div>
       <div class="next">
@@ -18,7 +18,7 @@
         </span>
       </div>
     </div>
-    <div class="middle animate__bounceInLeft animated bounceInLeft" ref="secondBox">
+    <div class="middle wow animate__bounceInLeft animated bounceInLeft" ref="secondBox">
       <div class="middle_head">
         <h2 class="middle_title">热门博客 |</h2>
         <div class="card-box">
@@ -59,12 +59,12 @@
         <!-- <nkFooter></nkFooter> -->
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import NavBar from "../components/navHead";
+import { WOW } from "wowjs";
+// import NavBar from "../components/navHead";
 import nkSwiper from "../components/nkSwiper";
 import nkFooter from "../components/nkFooter";
 export default {
@@ -73,24 +73,25 @@ export default {
     return {
       msg: "Nkosies",
       loginIn: "",
-      headbgColors: "#2f3542",
       headbgColor: "",
       drawer: false
     };
   },
-  components: { NavBar, nkSwiper, nkFooter },
+  components: {nkSwiper, nkFooter },
   created() {
     // document.querySelector('title').innerHTML='首页'
     // this.$req.commpontThis(this)
-      this.$req.login.loginIn({
-        method:'get',
-        data:{account:'admin',password:'123456'},
-        success:(res)=>{
-          console.log(666,res)
-        }
-      })
-      console.log(this.loginIn)
-      //  this.Inregister()
+    this.$req.login.loginIn({
+      method: "get",
+      data: { account: "admin", password: "123456" },
+      success: res => {
+        console.log(666, res);
+      }
+    });
+    //  this.Inregister()
+  },
+  mounted() {
+    new WOW().init()
   },
   methods: {
     now(v) {
@@ -101,18 +102,19 @@ export default {
         this.$refs.secondBox.scrollIntoView({ behavior: "smooth" });
       });
     },
-    Inregister(){
-           let data={
-        account:'admin',
-        password:'123456'
-     }
-      this.$req.login.register({
-        method:'post',
-        data:data,
-        success:(res)=>{
-          console.log('res=>',res)
-        }
-      })
+    Inregister() {
+      //        let data={
+      //     account:'admin66',
+      //     password:'123456'
+      //  }
+      //   this.$req.login.register({
+      //     method:'post',
+      //     data:data,
+      //     success:(res)=>{
+      //       console.log('res=>',res)
+      //     }
+      //   })
+     this.$router.push("/blog");
     }
   }
 };
@@ -128,7 +130,10 @@ export default {
     width: 100%;
     min-height: 100vh;
     background: url(../assets/img/timg.jpg) no-repeat;
-    background-size: 100% 100%;
+    // background-size: 100% 100%;
+    background-size:cover;
+
+    
     background-attachment: fixed;
     background-position: center;
     color: @whiteFontColor;

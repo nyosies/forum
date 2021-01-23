@@ -1,5 +1,8 @@
 <template>
-  <div class="navHead" :style="{background:headbgColor}" style="transitionDuration:2s">
+  <div
+    class="navHead"
+    :style="{background:headbgColor,boxShadow:boxShadow}"
+  >
     <div class="navleft">
       <div class="logo" :style="{color:logoColor}">{{title}}</div>
       <slot name="left"></slot>
@@ -24,9 +27,7 @@
         </div>
         <ul class="menus-item">
           <li v-for="item in navTitle" :key="item.id">
-            <router-link :to="item.path">
-              {{item.title}}
-            </router-link>
+            <router-link :to="item.path">{{item.title}}</router-link>
           </li>
         </ul>
         <div class="menu-footer">Nkosies @2020 in N</div>
@@ -39,7 +40,7 @@ export default {
   props: {
     navTitle: {
       type: Array,
-      default:()=>[
+      default: () => [
         { id: 1, title: "首页", path: "/" },
         { id: 2, title: "博客", path: "/blog" },
         { id: 3, title: "时间线", path: "/timeline" },
@@ -58,9 +59,17 @@ export default {
       type: String,
       default: "#fff"
     },
-    logoColor:{
+    logoColor: {
+      type: String,
+      default: ""
+    },
+    transitionTimer: {
+      type: String | Number,
+      default:0.6
+    },
+    boxShadow:{
       type:String,
-      default:''
+      default:'none'
     }
   },
   data() {
@@ -72,6 +81,8 @@ export default {
     // console.log(this.navTitle);
   },
   mounted() {
+    
+
     this.$nextTick(() => {
       window.onscroll = function() {
         var headerMain = document.querySelector(".navHead");
@@ -95,12 +106,15 @@ export default {
 @import url("../assets/color/color.less");
 .logo {
   color: #7ed6df;
+  font-family: "黑体";
+  font-size: 32px;
 }
 .headerMain-bg {
   background: @headbgColor;
   transition-duration: 1s;
 }
 .navHead {
+  // background: burlywood;
   z-index: 99;
   width: 100%;
   padding: 5px;
@@ -110,6 +124,8 @@ export default {
   left: 0;
   display: flex;
   align-items: center;
+//  animation: aniHeadColor 2s linear infinite;
+
   .navleft {
     width: 40%;
     color: #fff;
@@ -123,6 +139,7 @@ export default {
     flex: 1;
     display: flex;
     justify-content: center;
+    font-family: "黑体";
     ul {
       list-style: none;
       color: @whiteFontColor;
@@ -168,13 +185,15 @@ export default {
     }
     .menus-item {
       li {
+        list-style: none;
+        display:block;
         margin: 10px;
         padding: 5px;
         border-bottom: 1px solid @graybg;
         font-size: @smallFont;
-        a{
+        a {
           text-decoration: none;
-           color: #57606f;
+          color: #57606f;
         }
         &:first-child {
           margin-top: 20px;
@@ -197,6 +216,9 @@ export default {
   }
 
   @media screen and (max-width: 780px) {
+    .logo {
+      font-size: 26px;
+    }
     .navright {
       background: aqua;
       // opacity: 0;
@@ -213,11 +235,16 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         background: @whiteFontColor;
         border-radius: 50%;
         margin-right: 10px;
+      }
+    }
+    .menus-item {
+      li {
+        font-size: @miniFont !important;
       }
     }
   }

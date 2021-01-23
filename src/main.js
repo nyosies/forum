@@ -10,6 +10,8 @@ import '@/assets/icon/iconfont.css'
 // import swiper from './plugin/swiper'
 import vueSwiper from 'vue-awesome-swiper'
 
+import '@/utils/config.js'
+
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
     

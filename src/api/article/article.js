@@ -6,5 +6,9 @@ export default {
     getArticle: '/getArticle',
     pagination:'/pagination',
     allArticle:'/allArticle',
-    searchArticle:'/searchArticle'
+    searchArticle:'/searchArticle',
+    categoryList:'/categoryList',
+    getCategory:'/getCategory'
+
+
 }

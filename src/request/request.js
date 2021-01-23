@@ -12,6 +12,7 @@ function Myserve() {
 Myserve.prototype.commpontThis = function (v) {
     // 绑定组件的this
     this.nowhand = v
+    console.log(this)
     return this
 }
 
@@ -39,7 +40,11 @@ Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
     //  请求数据默认处理
     let defaultRequest = function (res) {
         // console.log(self.nowhand)
-        self.nowhand[bindName] = res
+        if (res.data) {
+            self.nowhand[bindName] = res.data
+        } else {
+            console.log('数据为空')
+        }
     }
     //成功的回调
     let success = config.success || defaultRequest
@@ -55,8 +60,12 @@ Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
         }
     }
     //参数序列化
-    let qsURL = data ? url + '?' + qs.stringify(data) : url
-    // console.log(qsURL)
+    /***
+     * 具有一定弊端，post参数拼接
+     */
+    let qsURL;
+    qsURL = Object.keys(data).length > 0 ? url + '?' + qs.stringify(data) : url
+
     //请求方式
     let state = {}
     let methodArr = ['get', 'post', 'put', 'del']
@@ -68,6 +77,7 @@ Myserve.prototype.sendMessage = function (name, modelName, url, config = {}) {
             }).then(errorCallback)
         }
     })
+
     if (self[modelName][name].state == 'ready') {
         self.state = 'pending'
         state[method]()

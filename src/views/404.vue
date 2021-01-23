@@ -1,13 +1,21 @@
 <template>
   <div class="notFound">
-    <NavBar headbgColor='Crimson' logoColor='#2f3542'/>
-    <h1>404 not Found</h1>
+    <NavBar headbgColor='Crimson' logoColor='#fff'/>
+    <h1 class="animate__animated animate__bounceInLeft">404 not Found</h1>
   </div>
 </template>
 <script>
 import NavBar from "../components/navHead";
 export default {
-  components: { NavBar }
+  components: { NavBar },
+  created(){
+    console.log(111)
+    this.$req.article.categoryList({
+      success:res=>{
+        console.log(res)
+      }
+    })
+  }
 };
 </script>
 <style lang="less" scoped>

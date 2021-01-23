@@ -1,20 +1,23 @@
 const exec = require('../../dao/dao')
 let bcrypt = require('../../fun/bcrypt/index')
 let fun = require('../../fun/fun')
+const date = require("silly-datetime");
 // const 
 
+/**
+ * 原本没写好，现在不想改了
+ */
 
-
-module.exports = {
+class Common{
     //管理员登录
     login(req, result) {
-        let sql = 'select * from admin where account=? and password=?'
-        let psw = req.query.password
+        let sql = 'select * from admin where account=? and password=?'  
+       let userInfo=  JSON.parse(Object.keys(req.body))
+    //    console.log(userInfo)
+       let psw = userInfo.password
         // 加密
-        req.query.password = bcrypt.encryption(psw, 'psw')
-        // req.query.password = bcrypt.decrypt(psw, 'psw')
-        let ParaArr = Object.values(req.query)
-        // console.log(ParaArr)
+        userInfo.password = bcrypt.encryption(psw, 'psw')
+        let ParaArr = Object.values(userInfo)
         exec(sql, ParaArr).then(res => {
             let params;
             if (res.length > 0 && res) {
@@ -32,18 +35,25 @@ module.exports = {
                 
               params =fun.succesFormat(_obj, '登录成功')
             } else {
-             params =fun.succesFormat(res, '获取失败', 400)
+             params =fun.succesFormat(res, '账号或密码错误', 400)
                 
             }
             result.json(params)
         })
-    },
+    }
     //管理员注册
     register(req, result) {
-        let sql = 'INSERT INTO  admin (account,password ) VALUES (?,?)'
-        let psw = req.query.password
-        req.query.password = bcrypt.encryption(psw, 'psw')
-        let ParaArr = Object.values(req.query)
+        let sql = 'INSERT INTO  admin (account,password,create_at,role) VALUES (?,?,?,?)'
+        let userInfo=  JSON.parse(Object.keys(req.body))
+        let psw = userInfo.password
+        console.log(userInfo)
+        userInfo.password = bcrypt.encryption(psw, 'psw')
+        let ParaArr = Object.values(userInfo)
+        //时间
+        const today = date.format(new Date(),'YYYY-MM-DD'); 
+        ParaArr.push(today)
+        ParaArr.push('user')
+        console.log(ParaArr)
         exec(sql, ParaArr).then(res => {
             // console.log(sql)
             if (res) {
@@ -55,7 +65,7 @@ module.exports = {
             }
         })
 
-    },
+    }
     //查询用户
 
     user(req, result) {
@@ -73,5 +83,6 @@ module.exports = {
         })
     }
 
-
 }
+
+    module.exports = new Common()

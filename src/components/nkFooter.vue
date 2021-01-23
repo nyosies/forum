@@ -9,7 +9,7 @@ export default {};
 <style lang="less" scoped>
 @import url("../assets/color/color.less");
 .nkFooter {
-  width: 100%;
+  min-width:880px;
   height: 90px;
   background: #333;
   display: flex;

@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- 缓存的组件视图 -->
+    <keep-alive>
+      <router-view v-if="!$route.meta.iscache" />
+    </keep-alive>
+    <router-view v-if="$route.meta.iscache"></router-view>
     <nkFooter></nkFooter>
   </div>
 </template>
@@ -8,9 +12,7 @@
 import NavBar from "./components/navHead";
 import nkFooter from "./components/nkFooter";
 export default {
-    components:{nkFooter,NavBar},
-
-
+  components: { nkFooter, NavBar }
 };
 </script>
 <style>
@@ -20,5 +22,8 @@ export default {
 }
 .el-drawer {
   width: 50% !important;
+}
+.el-form-item__content{
+  margin-left: 0 !important;
 }
 </style>
